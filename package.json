@@ -1,0 +1,33 @@
+{
+  "name": "funky-csv",
+  "version": "0.0.1",
+  "description": "Read & Write CSV files with Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CristalT/funky-csv.git"
+  },
+  "keywords": [
+    "csv",
+    "nodejs",
+    "npm",
+    "library",
+    "csv",
+    "parser"
+  ],
+  "author": "Marcelo J Forclaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CristalT/funky-csv/issues"
+  },
+  "homepage": "https://github.com/CristalT/funky-csv#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/node": "^17.0.12",
+    "jest": "^27.4.7"
+  }
+}
