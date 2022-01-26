@@ -1,0 +1,59 @@
+# Funky CSV
+## Make CSV files without loosing your coding rhythm
+
+### Getting started
+```bash
+$ npm i funky-csv
+```
+
+### How to use it
+```javascript
+const FunkyCSV = require('funky-csv').default;
+
+const csv = new FunkyCSV;
+
+csv.setHeader([
+    'Column Title 1',
+    'Column Title 2',
+]);
+
+csv.setContent([
+    {
+        val1: 'Value column 1 row 1',
+        val2: 'Value column 2 row 1',
+    },
+    {
+        val1: 'Value column 1 row 2',
+        val2: 'Value column 2 row 2',
+    },
+]);
+
+csv.write().then(() => console.log('output.csv successfully created!'));
+```
+
+### Custom options
+```javascript
+const csv = new FunkyCSV({
+    filename: 'custom_filename.csv',
+    delimiter: ';',
+});
+```
+
+| Option     | Type      | Default     |
+|------------|-----------|-------------|
+| filename   | string    | output.csv  |
+| delimiter  | string    | ,           |
+
+### Set filename on `write` method
+
+```javascript
+const csv = new FunkyCSV;
+csv.setContent(data);
+csv.write('custom_filename.csv');
+```
+> You can omit `.csv` extension, *Funky CSV* will automatically add it.
+
+## Extra methods
+`getOptions()` Returns current options
+
+`getCsv()` Returns CSV string
