@@ -63,7 +63,7 @@ export default class FunkyCSV {
   public async write(filename?: string): Promise<void> {
     let _filename = filename ?? this.options.filename;
 
-    if (_filename.indexOf('.csv') === -1) {
+    if (!_filename.endsWith('.csv')) {
       _filename += '.csv';
     }
 

@@ -80,6 +80,26 @@ it('should write csv', async () => {
   );
 });
 
+it('should write csv with custom filename passed within write method', async () => {
+  const funkyCSV = new FunkyCSV();
+  funkyCSV.setHeader(['Column 1', 'Column 2']);
+  funkyCSV.setContent([
+    {
+      val1: 'Value Column 1',
+      val2: 'Value Column 2',
+    },
+  ]);
+
+  const csv = funkyCSV.getCsv();
+
+  await funkyCSV.write('custom_filename');
+  expect(fs.writeFile).toHaveBeenCalledWith(
+    'custom_filename.csv',
+    csv,
+    expect.anything()
+  );
+});
+
 it('should throw an exception if header and content does not match', () => {
   const funkyCSV = new FunkyCSV();
   funkyCSV.setHeader(['Column 1']);

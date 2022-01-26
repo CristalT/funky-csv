@@ -76,7 +76,7 @@ class FunkyCSV {
     write(filename) {
         return __awaiter(this, void 0, void 0, function* () {
             let _filename = filename !== null && filename !== void 0 ? filename : this.options.filename;
-            if (_filename.indexOf('.csv') === -1) {
+            if (!_filename.endsWith('.csv')) {
                 _filename += '.csv';
             }
             return new Promise((resolve, reject) => {
