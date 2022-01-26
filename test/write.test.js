@@ -72,3 +72,10 @@ it('should write csv', async () => {
     expect.anything()
   );
 });
+
+it('should set header before the content', () => {
+  const funkyCSV = new FunkyCSV();
+  funkyCSV.setContent([{ val: 'Value' }]);
+  funkyCSV.setHeader(['Column 1']);
+  expect(funkyCSV.getCsv()).toBe('"Column 1",\n"Value",\n');
+});

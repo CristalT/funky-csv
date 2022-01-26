@@ -20,10 +20,11 @@ export default class FunkyCSV {
   }
 
   public setHeader(columnNames: string[]): void {
+    let header = '';
     columnNames.forEach((column) => {
-      this.csv += `"${column}"${this.options.delimiter}`;
+      header += `"${column}"${this.options.delimiter}`;
     });
-    this.csv += '\n';
+    this.csv = header + '\n' + this.csv;
   }
 
   public setContent(data: any[]): void {
