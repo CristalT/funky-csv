@@ -32,7 +32,7 @@ it('should set header', () => {
   const funkyCSV = new FunkyCSV();
   funkyCSV.setHeader(['Column Title 1', 'Column Title 2']);
 
-  expect(funkyCSV.getCsv()).toBe('"Column Title 1","Column Title 2",\n');
+  expect(funkyCSV.getCsv()).toBe('"Column Title 1","Column Title 2"\n');
 });
 
 it('should set content', () => {
@@ -49,8 +49,15 @@ it('should set content', () => {
   ]);
 
   expect(funkyCSV.getCsv()).toBe(
-    '"Content Cell 1a","Content Cell 2a",\n"Content Cell 1b","Content Cell 2b",\n'
+    '"Content Cell 1a","Content Cell 2a"\n"Content Cell 1b","Content Cell 2b"\n'
   );
+});
+
+it('should set header before the content', () => {
+  const funkyCSV = new FunkyCSV();
+  funkyCSV.setContent([{ val: 'Value' }]);
+  funkyCSV.setHeader(['Column 1']);
+  expect(funkyCSV.getCsv()).toBe('"Column 1"\n"Value"\n');
 });
 
 it('should write csv', async () => {
@@ -73,9 +80,28 @@ it('should write csv', async () => {
   );
 });
 
-it('should set header before the content', () => {
+it('should throw an exception if header and content does not match', () => {
   const funkyCSV = new FunkyCSV();
-  funkyCSV.setContent([{ val: 'Value' }]);
   funkyCSV.setHeader(['Column 1']);
-  expect(funkyCSV.getCsv()).toBe('"Column 1",\n"Value",\n');
+  const error = () => funkyCSV.setContent([{ val1: 'Value 1', val2: 'Value 2' }]);
+  expect(error).toThrow();
+});
+
+it('should throw an exception if header and content does not match', () => {
+  const funkyCSV = new FunkyCSV();
+  funkyCSV.setContent([{ val1: 'Value 1', val2: 'Value 2' }]);
+  const error = () => funkyCSV.setHeader(['Column 1']);
+  expect(error).toThrow();
+});
+
+it('should throw an exception if content type is invalid', () => {
+  const funkyCSV = new FunkyCSV();
+  const error = () => funkyCSV.setContent({ val1: 'Value 1', val2: 'Value 2' });
+  expect(error).toThrow();
+});
+
+it('should throw an exception if header type is invalid', () => {
+  const funkyCSV = new FunkyCSV();
+  const error = () => funkyCSV.setHeader('invalid header');
+  expect(error).toThrow();
 });
