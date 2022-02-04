@@ -1,11 +1,11 @@
 {
   "name": "funky-csv",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Read & Write CSV files with Node",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "node_modules/.bin/tsc"
+    "build": "rm -rf dist && node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,9 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@types/node": "^17.0.12",
+    "fs": "0.0.1-security",
     "jest": "^27.4.7",
+    "jsdom": "^19.0.0",
     "typescript": "^4.5.5"
   }
 }
