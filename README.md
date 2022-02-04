@@ -7,6 +7,7 @@ $ npm i funky-csv
 ```
 
 ### How to use it
+**Backend**
 ```javascript
 const FunkyCSV = require('funky-csv').default;
 
@@ -31,6 +32,17 @@ csv.setContent([
 csv.write().then(() => console.log('output.csv successfully created!'));
 ```
 
+**Frontend**
+```javascript
+import FunkyCSV from 'funky-csv';
+
+const csv = new FunkyCSV;
+
+csv.setHeader(...);
+csv.setContent(...);
+
+csv.download().then(() => console.log('output.csv successfully downloaded!'));
+```
 ### Custom options
 ```javascript
 const csv = new FunkyCSV({
