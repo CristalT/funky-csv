@@ -1,6 +1,6 @@
 {
   "name": "funky-csv",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Read & Write CSV files with Node",
   "main": "dist/index.js",
   "scripts": {
