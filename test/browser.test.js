@@ -1,4 +1,4 @@
-import FunkyCSV from '../src';
+import FunkyCSV from '../src/browser';
 
 class Link {
   setAttribute(attribute, value) {
@@ -18,12 +18,6 @@ const document = {
     removeChild: jest.fn(),
   },
 };
-
-function createLink(url) {
-    const link = document.createElement('a');
-    link.href = url;
-    return link;
-  }
 
 describe('frontend handlers', () => {
   it('should download csv', () => {

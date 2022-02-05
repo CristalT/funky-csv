@@ -1,4 +1,4 @@
-import FunkyCSV from '../src';
+import FunkyCSV from '../src/node';
 import * as fs from 'fs';
 
 jest.mock('fs', () => ({
