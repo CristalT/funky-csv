@@ -1,3 +1,5 @@
+import { writeFile } from 'fs';
+
 type Options = {
   delimiter: string;
   filename: string;
@@ -78,57 +80,12 @@ export default class FunkyCSV {
     return this.header + this.content;
   }
 
-  private parseFilename(filename?: string): string {
+  protected parseFilename(filename?: string): string {
     let _filename = filename ?? this.options.filename;
 
     if (!_filename.endsWith('.csv')) {
       _filename += '.csv';
     }
     return _filename;
-  }
-
-  public async write(filename?: string): Promise<void> {
-    if (!process) {
-      throw new Error('Write method is not available in current environment.');
-    }
-
-    return new Promise((resolve, reject) => {
-      const fs = require('fs');
-      fs.writeFile(
-        this.parseFilename(filename),
-        this.getCsv(),
-        (error: any) => {
-          if (error) {
-            return reject(error);
-          }
-          resolve();
-        }
-      );
-    });
-  }
-
-  public download(filename: string): Promise<void> {
-    if (!document) {
-      throw new Error(
-        'Download method is not available in current environment.'
-      );
-    }
-
-    return new Promise((resolve, reject) => {
-      try {
-        const link = document.createElement('a');
-        link.setAttribute(
-          'href',
-          `data:text/csv;charset=utf-8,${this.getCsv()}`
-        );
-        link.setAttribute('download', this.parseFilename(filename));
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        resolve();
-      } catch (error) {
-        reject(error);
-      }
-    });
   }
 }
