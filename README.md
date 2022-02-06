@@ -58,12 +58,17 @@ const csv = new FunkyCSV({
 | delimiter                | string    | ,           | Column delimiter                            |
 | closure                  | string    | "           | Closure character for string delimiter      |
 
-### Set filename on `write` method
+### Set filename on `write` & `download` method
 
 ```javascript
 const csv = new FunkyCSV;
 csv.setContent(data);
+
+// in nodejs
 csv.write('custom_filename.csv');
+
+// in browser
+csv.download('custom_filename.csv');
 ```
 > You can omit `.csv` extension, *Funky CSV* will automatically add it.
 

@@ -1,3 +1,5 @@
+# 0.0.9-1 (2022-02-06)
+**Update** | Documentation
 # 0.0.9 (2022-02-06)
 **Feat** | Closure
 - Adds closure option
