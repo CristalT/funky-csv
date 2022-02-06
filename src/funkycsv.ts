@@ -1,20 +1,21 @@
-import { writeFile } from 'fs';
-
 type Options = {
   delimiter: string;
   filename: string;
+  closure: string;
 };
 
 export default class FunkyCSV {
   private header: string = '';
   private content: string = '';
+  private options: Options = {
+    delimiter: ',',
+    filename: 'output.csv',
+    closure: '"',
+  };
 
-  public constructor(
-    private readonly options: Options = {
-      delimiter: ',',
-      filename: 'output.csv',
-    }
-  ) {}
+  public constructor(options: Options) {
+    Object.assign(this.options, options);
+  }
 
   public getOptions(): Options {
     return this.options;
@@ -38,8 +39,13 @@ export default class FunkyCSV {
     }
 
     this.header = '';
+    const closure = this.options.closure
     columnNames.forEach((column) => {
-      this.header += `"${String(column).trim()}"${this.options.delimiter}`;
+      this.header += `${closure}${String(column)
+        .trim()
+        .replace(new RegExp(closure, 'g'), closure + closure)}${closure}${
+        this.options.delimiter
+      }`;
     });
     this.header = this.header.slice(0, -1) + '\n';
   }
@@ -68,8 +74,13 @@ export default class FunkyCSV {
         );
       }
 
+      const closure = this.options.closure
       cells.forEach((cell) => {
-        this.content += `"${String(cell).trim()}"${this.options.delimiter}`;
+        this.content += `${closure}${String(cell)
+          .trim()
+          .replace(new RegExp(closure, 'g'), closure + closure)}${closure}${
+          this.options.delimiter
+        }`;
       });
       this.content = this.content.slice(0, -1);
       this.content += '\n';

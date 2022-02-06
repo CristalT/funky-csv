@@ -48,13 +48,15 @@ csv.download().then(() => console.log('output.csv successfully downloaded!'));
 const csv = new FunkyCSV({
     filename: 'custom_filename.csv',
     delimiter: ';',
+    closure: '"',
 });
 ```
 
-| Option     | Type      | Default     |
-|------------|-----------|-------------|
-| filename   | string    | output.csv  |
-| delimiter  | string    | ,           |
+| Option                   | Type      | Default     | Description                                 |
+|--------------------------|-----------|-------------|---------------------------------------------|
+| filename                 | string    | output.csv  | Output file name                            |
+| delimiter                | string    | ,           | Column delimiter                            |
+| closure                  | string    | "           | Closure character for string delimiter      |
 
 ### Set filename on `write` method
 
