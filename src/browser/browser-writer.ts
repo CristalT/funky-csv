@@ -1,6 +1,6 @@
-import FunkyCSV from './funkycsv';
+import FunkyCSV from '../writer';
 
-export default class Browser extends FunkyCSV {
+export default class BrowserWriter extends FunkyCSV {
   public download(filename: string): Promise<void> {
     if (typeof document === 'undefined') {
       throw new Error(
