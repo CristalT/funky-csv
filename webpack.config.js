@@ -24,7 +24,7 @@ const nodeConfig = {
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './'),
     filename: '[name].js',
     libraryTarget: 'umd',
     libraryExport: 'default',
@@ -38,7 +38,7 @@ const browserConfig = {
   },
   target: 'web',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './'),
     filename: '[name].js',
     libraryTarget: 'umd',
     globalObject: 'this',
