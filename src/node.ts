@@ -1,4 +1,4 @@
-import FunkyCSVWriter from '../writer';
+import FunkyCSVWriter from './writer';
 import { writeFile } from 'fs';
 
 export default class NodeWriter extends FunkyCSVWriter {

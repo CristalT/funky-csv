@@ -3,12 +3,12 @@ import { isNumeric, removeClosures, toCamelCase } from './helpers';
 interface ReadOptions {
   delimiter: ',';
   closure: '"';
-  rowDelimiter: string;
+  newLine: string;
   headerRow: number;
   parseNumbers: boolean;
 }
 
-type RowObject = {
+export type RowObject = {
   [K in string]: string | number;
 };
 
@@ -16,7 +16,7 @@ export default class FunkyCSVReader {
   public options: ReadOptions = {
     delimiter: ',',
     closure: '"',
-    rowDelimiter: '\n',
+    newLine: '\n',
     headerRow: 0,
     parseNumbers: false,
   };
@@ -28,7 +28,7 @@ export default class FunkyCSVReader {
   }
 
   private getRows(csv: string): string[] {
-    return csv.split(this.options.rowDelimiter);
+    return csv.split(this.options.newLine);
   }
 
   private getHeader(csv: string): string[] {
@@ -51,7 +51,7 @@ export default class FunkyCSVReader {
         fields.forEach((field, index) => {
           const f = removeClosures(field, this.options.closure);
           if (f) {
-            obj[toCamelCase(headerValues[index])] = !isNumeric(f) && this.options.parseNumbers ? Number(f) : String(f);
+            obj[toCamelCase(headerValues[index])] = isNumeric(f) && this.options.parseNumbers ? Number(f) : String(f);
           }
         });
         if (Object.values(obj).length) {

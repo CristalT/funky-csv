@@ -1,4 +1,4 @@
-import FunkyCSV from '../writer';
+import FunkyCSV from './writer';
 
 export default class BrowserWriter extends FunkyCSV {
   public download(filename: string): Promise<void> {

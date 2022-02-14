@@ -20,7 +20,7 @@ it('should initialize with custom options', () => {
   expect(options).toStrictEqual({
     filename: 'custom.csv',
     delimiter: ';',
-    closure: '-'
+    closure: '-',
   });
 });
 
@@ -44,9 +44,7 @@ it('should set content', () => {
     },
   ]);
 
-  expect(funkyCSV.getCsv()).toBe(
-    '"Content Cell 1a","Content Cell 2a"\n"Content Cell 1b","Content Cell 2b"\n'
-  );
+  expect(funkyCSV.getCsv()).toBe('"Content Cell 1a","Content Cell 2a"\n"Content Cell 1b","Content Cell 2b"\n');
 });
 
 it('should set header before the content', () => {
@@ -56,15 +54,14 @@ it('should set header before the content', () => {
   expect(funkyCSV.getCsv()).toBe('"Column 1"\n"Value"\n');
 });
 
-it('should throw an exception if header and content does not match', () => {
+it('should throw an exception if content does not match with header length', () => {
   const funkyCSV = new FunkyCSV();
   funkyCSV.setHeader(['Column 1']);
-  const error = () =>
-    funkyCSV.setContent([{ val1: 'Value 1', val2: 'Value 2' }]);
+  const error = () => funkyCSV.setContent([{ val1: 'Value 1', val2: 'Value 2' }]);
   expect(error).toThrow();
 });
 
-it('should throw an exception if header and content does not match', () => {
+it('should throw an exception if header does not match with content length', () => {
   const funkyCSV = new FunkyCSV();
   funkyCSV.setContent([{ val1: 'Value 1', val2: 'Value 2' }]);
   const error = () => funkyCSV.setHeader(['Column 1']);
@@ -95,14 +92,14 @@ it('should duplicate quotes to keep right content', () => {
 });
 
 it('should duplicate closure if it is part of content text', () => {
-    const funkyCSV = new FunkyCSV({
-        closure: '-'
-    });
-    funkyCSV.setHeader(['Column -1-']);
-    funkyCSV.setContent([
-      {
-        ex: 'Value -1-',
-      },
-    ]);
-    expect(funkyCSV.getCsv()).toBe('-Column --1---\n-Value --1---\n');
+  const funkyCSV = new FunkyCSV({
+    closure: '-',
   });
+  funkyCSV.setHeader(['Column -1-']);
+  funkyCSV.setContent([
+    {
+      ex: 'Value -1-',
+    },
+  ]);
+  expect(funkyCSV.getCsv()).toBe('-Column --1---\n-Value --1---\n');
+});

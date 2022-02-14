@@ -1,4 +1,4 @@
-import { FunkyCSVBrowserWriter as FunkyCSV } from '../src/browser';
+import FunkyCSV from '../src/browser';
 
 class Link {
   setAttribute(attribute, value) {

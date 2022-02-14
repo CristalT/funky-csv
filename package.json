@@ -6,7 +6,7 @@
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "build": "rm -rf ./dist && webpack --mode=production --config webpack.config.js && mv -v dist/* ./",
+    "build": "rm -rf ./dist && webpack --mode=production --config webpack.config.js",
     "precommit": "lint-staged",
     "prepublishOnly": "npm run build"
   },

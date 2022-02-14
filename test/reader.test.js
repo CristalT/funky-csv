@@ -5,7 +5,7 @@ it('should initialize with default options', () => {
   expect(funkyCSV.options).toStrictEqual({
     delimiter: ',',
     closure: '"',
-    rowDelimiter: '\n',
+    newLine: '\n',
     headerRow: 0,
     parseNumbers: false,
   });
@@ -15,14 +15,14 @@ it('should initialize with custom options', () => {
   const funkyCSV = new FunkyCSVReader({
     delimiter: ';',
     closure: '-',
-    rowDelimiter: '\t',
+    newLine: '\t',
     headerRow: -1,
     parseNumbers: true
   });
   expect(funkyCSV.options).toStrictEqual({
     delimiter: ';',
     closure: '-',
-    rowDelimiter: '\t',
+    newLine: '\t',
     headerRow: -1,
     parseNumbers: true
   });
@@ -57,3 +57,18 @@ it('should keep double quotes words', () => {
     }
   ]);
 })
+
+it('should parse numeric strings to number type', async () => {
+  const funkyCSV = new FunkyCSVReader({
+    parseNumbers: true,
+  });
+  await expect(funkyCSV.getContent('"col1","col2"\n"field1","123"\n')).toStrictEqual([{ col1: 'field1', col2: 123 }]);
+});
+
+it('should parse with custom newline char', async () => {
+  const funkyCSV = new FunkyCSVReader({
+    newLine: '\r',
+    parseNumbers: true,
+  });
+  expect(funkyCSV.getContent('"col1","col2"\r"field1","123"\r')).toStrictEqual([{ col1: 'field1', col2: 123 }]);
+});
