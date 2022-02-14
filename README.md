@@ -61,7 +61,7 @@ const csv = new FunkyCSVReader;
 const csvString = '"col name 1","field1"\n"col name 2","field2"\n'
 csv.parse(csvString).then(console.log) // [{colName1: field1, colName2: field2}]
 ```
-> 💡  Column names are automatically converted to `camelCase` style
+> 🪄  Column names are automatically converted to `camelCase` style
 
 ## Custom options
 **Example:**
@@ -79,9 +79,19 @@ const csv = new FunkyCSV({
 | filename                 | string    | output.csv  | ✅         | ❌         | Output file name                            |
 | delimiter                | string    | ,           | ✅         | ✅         | Column delimiter                            |
 | closure                  | string    | "           | ✅         | ✅         | Closure character for string delimiter      |
-| headerRow                | number    | 0           | ❌         | ✅         | Row number of header location (where to start reading)   |
+| headerRow (*)            | number    | 0           | ❌         | ✅         | Row number of header location (where to start reading)   |
 | newLine                  | string    | \n          | ❌         | ✅         | New line ascii character                    |
 | parseNumbers             | boolean   | false       | ❌         | ✅         | Parse string numbers to number type         |
+
+> 💡 Setting `headerRow` as `-1` the parser returns an array of arrays representing each row without header instead of an array of objects with key-value pair. Example:
+```javascript
+// If we don't specify headerRow
+[
+  ['field1', 'field2'], // row 0
+  ['field3', 'field4'], // row 1
+  ...                   // next rows...
+]
+```
 
 # Extras
 ## Setting filename on `write` & `download` method
@@ -93,4 +103,4 @@ csv.write('custom_filename');
 // browser
 csv.download('custom_filename');
 ```
-> 💡 You can omit `.csv` extension, *Funky CSV* will automatically add it.
+> 🪄 You can omit `.csv` extension, *Funky CSV* will automatically add it.
