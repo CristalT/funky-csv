@@ -3,7 +3,7 @@ import fs from 'fs';
 import { normalizeExtension } from './helpers';
 
 export default class NodeReader extends FunkyCSVReader {
-  public read(filename: string): Promise<RowObject[]> {
+  public read(filename: string): Promise<RowObject[] | string[][]> {
     return new Promise((resolve, reject) => {
       fs.readFile(normalizeExtension(filename), (error, data) => {
         if (error) {

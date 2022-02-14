@@ -75,7 +75,7 @@ export default class FunkyCSVReader {
     return results;
   }
 
-  public getContent(csv: string): RowObject[] | string[] {
+  public getContent(csv: string): RowObject[] | string[][] {
     if (this.options.headerRow !== -1) {
       return this.getContentWithHeaderValues(csv);
     }
