@@ -13,6 +13,7 @@ export type RowObject = {
 };
 
 export default class FunkyCSVReader {
+  private header: string[] = [];
   public options: ReadOptions = {
     delimiter: ',',
     closure: '"',
@@ -35,11 +36,24 @@ export default class FunkyCSVReader {
 
   private getHeader(csv: string): string[] {
     if (this.options.headerRow > -1) {
-      return this.getRows(csv)
+      this.header = this.getRows(csv)
         [this.options.headerRow].split(this.options.delimiter)
         .map((f) => removeClosures(f, this.options.closure));
     }
-    return [];
+    return this.header;
+  }
+
+  public setHeader(header: string[]): void {
+    if (!header.length || !Array.isArray(header) || header.some((val) => typeof val !== 'string')) {
+      throw new Error('Bad header passed. The custom header must be an array of strings');
+    }
+    const uniqSet = [...new Set(header)];
+    if (uniqSet.length !== header.length) {
+      throw new Error("Custom header shouldn't have repeated values");
+    }
+
+    this.options.headerRow = -1;
+    this.header = header;
   }
 
   private getContentWithHeaderValues(csv: string): RowObject[] {
@@ -79,7 +93,7 @@ export default class FunkyCSVReader {
   }
 
   public getContent(csv: string): RowObject[] | (string | number)[][] {
-    if (this.options.headerRow !== -1) {
+    if (this.options.headerRow !== -1 || this.header.length) {
       return this.getContentWithHeaderValues(csv);
     }
     return this.getContentWithoutHeaderValues(csv);

@@ -115,3 +115,17 @@ it('should parse without header values and parsing numbers', () => {
     ['field3', 100.20],
   ]);
 });
+
+it('should set custom header', () => {
+  const funkyCSV = new FunkyCSVReader;
+
+  funkyCSV.setHeader(['column name 1', 'column name 2']);
+  const result = funkyCSV.getContent('"field1","field2"\n');
+  expect(result).toStrictEqual([{columnName1: 'field1', columnName2: 'field2'}])
+})
+
+it ('should throw an exception with wrong custom header', () => {
+  const funkyCSV = new FunkyCSVReader;
+  const error = () => funkyCSV.setHeader(['column name 1', 'column name 1']);
+  expect(error).toThrow()
+})

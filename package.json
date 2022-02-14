@@ -1,18 +1,16 @@
 {
   "name": "funky-csv",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Write CSV files without losing your coding rhythm",
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "build": "rm -rf ./dist && webpack --mode=production --config webpack.config.js",
-    "prepublishOnly": "npm run build"
+    "build": "rm -rf ./dist && webpack --mode=production --config webpack.config.js"
   },
   "pre-commit": [
     "lint:fix",
-    "test",
-    "build"
+    "test"
   ],
   "repository": {
     "type": "git",

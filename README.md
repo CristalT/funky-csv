@@ -83,7 +83,8 @@ const csv = new FunkyCSV({
 | newLine                  | string    | \n          | ❌         | ✅         | New line ascii character                    |
 | parseNumbers             | boolean   | false       | ❌         | ✅         | Parse string numbers to number type         |
 
-> 💡 Setting `headerRow` as `-1` the parser returns an array of arrays representing each row without header instead of an array of objects with key-value pair. Example:
+### Custom Header on file reading
+Setting `headerRow` as `-1` the parser returns an array of arrays representing each row without header instead of an array of objects with key-value pair. Example:
 ```javascript
 // If we don't specify headerRow
 [
@@ -92,7 +93,16 @@ const csv = new FunkyCSV({
   ...                   // next rows...
 ]
 ```
-
+As an alternative we can set your own custom header. Example:
+```javascript
+const csvReader = new FunkyCSVReader;
+csvReader.setHeader([
+  'column title 1',
+  'column title 2',
+  ...
+])
+csvReader.read('filename.csv').then(console.log) // [{columnName1: 'field1', columnName2: 'field2'}]
+```
 # Extras
 ## Setting filename on `write` & `download` method
 

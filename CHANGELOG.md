@@ -1,3 +1,5 @@
+# 0.1.2 (2022-02-14)
+**Feat** | CSV readers for node and browser
 # 0.0.9-1 (2022-02-06)
 **Update** | Documentation
 # 0.0.9 (2022-02-06)
