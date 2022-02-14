@@ -79,6 +79,7 @@ const csv = new FunkyCSV({
 | filename                 | string    | output.csv  | ✅         | ❌         | Output file name                            |
 | delimiter                | string    | ,           | ✅         | ✅         | Column delimiter                            |
 | closure                  | string    | "           | ✅         | ✅         | Closure character for string delimiter      |
+| headerRow                | number    | 0           | ❌         | ✅         | Row number of header location (where to start reading)   |
 | newLine                  | string    | \n          | ❌         | ✅         | New line ascii character                    |
 | parseNumbers             | boolean   | false       | ❌         | ✅         | Parse string numbers to number type         |
 
