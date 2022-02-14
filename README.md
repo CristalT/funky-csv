@@ -100,8 +100,9 @@ csvReader.setHeader([
   'column title 1',
   'column title 2',
   ...
-])
-csvReader.read('filename.csv').then(console.log) // [{columnName1: 'field1', columnName2: 'field2'}]
+]);
+csvReader.read('filename.csv').then(console.log);
+// [{columnTitle1: 'field1', columnTitle2: 'field2'}]
 ```
 # Extras
 ## Setting filename on `write` & `download` method
