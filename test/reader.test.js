@@ -103,3 +103,15 @@ it('should parse without header values', () => {
     ['field3', 'field4'],
   ]);
 });
+
+it('should parse without header values and parsing numbers', () => {
+  const funkyCSV = new FunkyCSVReader({
+    headerRow: -1,
+    parseNumbers: true,
+  });
+  const result = funkyCSV.getContent('"field1","123"\n"field3","100.20"');
+  expect(result).toStrictEqual([
+    ['field1', 123],
+    ['field3', 100.20],
+  ]);
+});

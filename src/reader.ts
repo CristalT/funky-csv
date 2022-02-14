@@ -65,17 +65,20 @@ export default class FunkyCSVReader {
     return results;
   }
 
-  private getContentWithoutHeaderValues(csv: string): string[][] {
-    const results: string[][] = [];
+  private getContentWithoutHeaderValues(csv: string): (string | number)[][] {
+    const results: (string | number)[][] = [];
     this.getRows(csv).forEach((row) => {
       const fields = row.split(`${this.options.closure}${this.options.delimiter}${this.options.closure}`);
-      const sanitizedFields = fields.map(f => removeClosures(f, this.options.closure));
+      const sanitizedFields = fields.map((field) => {
+        const f = removeClosures(field, this.options.closure);
+        return isNumeric(f) && this.options.parseNumbers ? Number(f) : String(f);
+      });
       results.push(sanitizedFields);
-    })
+    });
     return results;
   }
 
-  public getContent(csv: string): RowObject[] | string[][] {
+  public getContent(csv: string): RowObject[] | (string | number)[][] {
     if (this.options.headerRow !== -1) {
       return this.getContentWithHeaderValues(csv);
     }
