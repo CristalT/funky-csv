@@ -17,23 +17,29 @@ const generalConfig = {
 };
 
 const nodeConfig = {
-  entry: './src/node.ts',
+  entry: {
+    node: './src/node.ts',
+    'node-reader': './src/node-reader.ts',
+  },
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'node.js',
+    path: path.resolve(__dirname, './'),
+    filename: '[name].js',
     libraryTarget: 'umd',
     libraryExport: 'default',
   },
 };
 
 const browserConfig = {
-  entry: './src/browser.ts',
+  entry: {
+    browser: './src/browser.ts',
+    'browser-reader': './src/browser-reader.ts',
+  },
   target: 'web',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'browser.js',
+    path: path.resolve(__dirname, './'),
+    filename: '[name].js',
     libraryTarget: 'umd',
     globalObject: 'this',
     libraryExport: 'default',

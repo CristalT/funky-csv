@@ -1,12 +1,12 @@
 # Funky CSV
-## Make CSV files without loosing your coding rhythm
+## Make & Read CSV files without loosing your coding rhythm
 
-### Getting started
+## Installation
 ```bash
 $ npm i funky-csv
 ```
 
-### How to use it
+## Create CSV Files
 **Backend**
 ```javascript
 const FunkyCSV = require('funky-csv/node');
@@ -43,36 +43,74 @@ csv.setContent(...);
 
 csv.download().then(() => console.log('output.csv successfully downloaded!'));
 ```
-### Custom options
+
+## Read and parse CSV files
+**Backend**
+```javascript
+import FunkyCSVReader from 'funky-csv/node-reader';
+
+const csv = new FunkyCSVReader;
+csv.read('path/to/filename.csv').then(console.log) // [{col1: field1, col2: field2}]
+```
+
+**Frontend**
+```javascript
+import FunkyCSVReader from 'funky-csv/browser-reader';
+
+const csv = new FunkyCSVReader;
+const csvString = '"col name 1","field1"\n"col name 2","field2"\n'
+csv.parse(csvString).then(console.log) // [{colName1: field1, colName2: field2}]
+```
+> 🪄  Column names are automatically converted to `camelCase` style
+
+## Custom options
+**Example:**
 ```javascript
 const csv = new FunkyCSV({
     filename: 'custom_filename.csv',
     delimiter: ';',
     closure: '"',
+    ...
 });
 ```
 
-| Option                   | Type      | Default     | Description                                 |
-|--------------------------|-----------|-------------|---------------------------------------------|
-| filename                 | string    | output.csv  | Output file name                            |
-| delimiter                | string    | ,           | Column delimiter                            |
-| closure                  | string    | "           | Closure character for string delimiter      |
+| Option                   | Type      | Default     | Writer     | Reader    | Description                                 |
+|--------------------------|-----------|-------------|:----------:|:---------:|---------------------------------------------|
+| filename                 | string    | output.csv  | ✅         | ❌         | Output file name                            |
+| delimiter                | string    | ,           | ✅         | ✅         | Column delimiter                            |
+| closure                  | string    | "           | ✅         | ✅         | Closure character for string delimiter      |
+| headerRow (*)            | number    | 0           | ❌         | ✅         | Row number of header location (where to start reading)   |
+| newLine                  | string    | \n          | ❌         | ✅         | New line ascii character                    |
+| parseNumbers             | boolean   | false       | ❌         | ✅         | Parse string numbers to number type         |
 
-### Set filename on `write` & `download` method
+### Custom Header on file reading
+Setting `headerRow` as `-1` the parser returns an array of arrays representing each row without header instead of an array of objects with key-value pair. Example:
+```javascript
+// If we don't specify headerRow
+[
+  ['field1', 'field2'], // row 0
+  ['field3', 'field4'], // row 1
+  ...                   // next rows...
+]
+```
+As an alternative we can set your own custom header. Example:
+```javascript
+const csvReader = new FunkyCSVReader;
+csvReader.setHeader([
+  'column title 1',
+  'column title 2',
+  ...
+])
+csvReader.read('filename.csv').then(console.log) // [{columnName1: 'field1', columnName2: 'field2'}]
+```
+# Extras
+## Setting filename on `write` & `download` method
 
 ```javascript
-const csv = new FunkyCSV;
-csv.setContent(data);
+// nodejs
+csv.write('custom_filename');
 
-// in nodejs
-csv.write('custom_filename.csv');
-
-// in browser
-csv.download('custom_filename.csv');
+// browser
+csv.download('custom_filename');
 ```
-> You can omit `.csv` extension, *Funky CSV* will automatically add it.
-
-## Extra methods
-`getOptions()` Returns current options
-
-`getCsv()` Returns CSV string
+> 🪄 You can omit `.csv` extension, *Funky CSV* will automatically add it.
